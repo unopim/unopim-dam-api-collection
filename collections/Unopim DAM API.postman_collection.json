@@ -1,0 +1,1366 @@
+{
+	"info": {
+		"_postman_id": "58413ef2-eda1-48ea-a1b5-7361ff15eb2a",
+		"name": "Unopim DAM API",
+		"description": "The UnoPim DAM API.\n\nAuthenticated with a Bearer token (OAuth2 / Passport) — set the `token` and `url` collection variables (or an environment). Every route is under `/api/v1/rest` and guarded by `auth:api` + the `api.dam.*` API-key permissions. Directory-level ACL further scopes what each caller can see and act on.\n\nSections: Asset, Directory, Comment, Property, Tag, Share, Linked Resources.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46581819",
+		"_collection_link": "https://pawannigam.postman.co/workspace/UnoPim-%26-DAM~e38866c8-e92b-4c0e-b2ce-ad0c041a021e/collection/46581819-58413ef2-eda1-48ea-a1b5-7361ff15eb2a?action=share&source=collection_link&creator=46581819"
+	},
+	"item": [
+		{
+			"name": "DAM",
+			"item": [
+				{
+					"name": "Asset",
+					"item": [
+						{
+							"name": "Get all Assets",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets?limit=100&page=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "100"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Asset by Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets/19",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets",
+										"19"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Upload the Assets",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files[]",
+											"type": "file",
+											"src": [
+												"postman-cloud:///1f05d586-1f0c-4680-a9ae-73fe02d78281",
+												"/home/users/pawan.kumar/Downloads/1k_products (1).csv"
+											]
+										},
+										{
+											"key": "directory_id",
+											"value": "5",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets"
+									]
+								},
+								"description": "Upload one or more files into a directory. Use files[] (repeatable) for the binaries."
+							},
+							"response": []
+						},
+						{
+							"name": "Re-upload Asset",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "postman-cloud:///1f181db0-3627-40c0-8d6d-c55d296717da"
+										},
+										{
+											"key": "asset_id",
+											"value": "122",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets/reupload",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets",
+										"reupload"
+									]
+								},
+								"description": "Replace the binary of an existing asset while keeping its id."
+							},
+							"response": []
+						},
+						{
+							"name": "Update Asset",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"file_name\": \"Update File Name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets/211",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets",
+										"211"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Asset Embedded Metadata",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets/18/metadata",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets",
+										"18",
+										"metadata"
+									]
+								},
+								"description": "Return the embedded metadata (EXIF/IPTC/etc.) extracted at upload for the asset. For images with none stored, falls back to an on-demand read. Directory-ACL scoped."
+							},
+							"response": []
+						},
+						{
+							"name": "Download the Assets",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets/download/210",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets",
+										"download",
+										"210"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete the Asset",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/assets/384",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"assets",
+										"384"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "APIs for DAM Assets — upload, fetch, update, download, delete, and read embedded metadata."
+				},
+				{
+					"name": "Directory",
+					"item": [
+						{
+							"name": "Get all Directories",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/directories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"directories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get directory by Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/directories/5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"directories",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a directory",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Testing_Directory1",
+											"type": "text"
+										},
+										{
+											"key": "parent_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/directories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"directories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a directory",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Testing Directory SKPL\",\n    \"parent_id\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/directories/95",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"directories",
+										"95"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a directory",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/directories/95",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"directories",
+										"95"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "APIs for DAM Directories."
+				},
+				{
+					"name": "Comment",
+					"item": [
+						{
+							"name": "Get Comment By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/comments/3",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"comments",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Comment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"comments\": \"New more varients of this proudct\",\n    \"dam_asset_id\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/comments",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Comment",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/comments/2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"comments",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "APIs for DAM Comments."
+				},
+				{
+					"name": "Property",
+					"item": [
+						{
+							"name": "Get Property By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/properties/3",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"properties",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Property",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Description\",\n    \"type\": \"Text\",\n    \"value\": \"This image showcases the new winter collection of jackets.\",\n    \"language\": \"en_US\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/properties/7",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"properties",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Property",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\": \"Text\",\n    \"value\": \"This is the New Property\",\n    \"language\": \"58\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/properties/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"properties",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete the Property",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/properties/2",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"properties",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "APIs for DAM Properties (key/value/locale metadata per asset)."
+				},
+				{
+					"name": "Tag",
+					"item": [
+						{
+							"name": "Get All Tags",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/tags?per_page=25",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"tags"
+									],
+									"query": [
+										{
+											"key": "query",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "per_page",
+											"value": "25"
+										}
+									]
+								},
+								"description": "List every tag in the vocabulary. Optional ?query= to search by name, ?per_page= (1-100) to page."
+							},
+							"response": []
+						},
+						{
+							"name": "Get Tag By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/tags/5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"tags",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Tag (attach to asset)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tag\": \"Test1\",\n     \"asset_id\": 19\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/tags",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove a Tag (detach from asset)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tag\": \"Test1\",\n    \"asset_id\": 19\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/tags",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"tags"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bulk Assign Tags",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"asset_ids\": [\n        1,\n        2,\n        3\n    ],\n    \"tags\": [\n        \"campaign\",\n        \"q3\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/tags/bulk",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"tags",
+										"bulk"
+									]
+								},
+								"description": "Assign one or more tags to many assets at once. Tags are created on demand. Non-existent or inaccessible asset ids are skipped (not rejected); the response \"count\" reflects how many were tagged. Max 500 asset_ids."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Tag (Vocabulary)",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/tags/8",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"tags",
+										"8"
+									]
+								},
+								"description": "Delete a tag from the vocabulary entirely — it is detached from every asset (pivot cascades). Gated by the api.dam.tags.destroy permission."
+							},
+							"response": []
+						}
+					],
+					"description": "APIs for DAM Tags — attach/detach per asset, bulk assign/detach across assets, and delete a tag from the vocabulary."
+				},
+				{
+					"name": "Share",
+					"item": [
+						{
+							"name": "Get Share By Id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all Shares",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares"
+									]
+								},
+								"description": "List every share link you can see. Directory-ACL scoped: you only see shares whose target lives in a directory granted to your role. Supports datagrid-style filters/sort/pagination."
+							},
+							"response": []
+						},
+						{
+							"name": "Create Share (Asset)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"share_type\": \"asset\",\n    \"asset_id\": 20,\n    \"name\": \"SK\",\n    \"no_expiry\": false,\n    \"expiry_days\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares"
+									]
+								},
+								"description": "Create a share link for an asset. Pass asset_id. expiry_days (1-365, default 7) OR no_expiry:true for a permanent link. name is optional."
+							},
+							"response": []
+						},
+						{
+							"name": "Create Share (Directory)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"share_type\": \"directory\",\n    \"directory_id\": 1,\n    \"name\": \"Brand assets\",\n    \"no_expiry\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares"
+									]
+								},
+								"description": "Create a share link for a directory (shares all assets inside it). Pass directory_id. Use no_expiry:true for a permanent link."
+							},
+							"response": []
+						},
+						{
+							"name": "Update Share",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"SK55\",\n    \"expiry_days\": 30\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares/7",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares",
+										"7"
+									]
+								},
+								"description": "Update a share's name and/or expiry. Only the fields you send change: pass name to rename, expiry_days to reset the window, or no_expiry:true to make it permanent."
+							},
+							"response": []
+						},
+						{
+							"name": "Revoke Share",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares/7/revoke",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares",
+										"7",
+										"revoke"
+									]
+								},
+								"description": "Revoke a share link (soft). The token/URL stops working but the record is kept so it can be reauthorized."
+							},
+							"response": []
+						},
+						{
+							"name": "Reauthorize Share",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares/7/reauthorize",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares",
+										"7",
+										"reauthorize"
+									]
+								},
+								"description": "Reactivate a previously revoked link — the original token/URL works again (no new link is minted)."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Share",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/shares/7",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"shares",
+										"7"
+									]
+								},
+								"description": "Permanently delete the share record."
+							},
+							"response": []
+						}
+					],
+					"description": "APIs for DAM Share links. Create shareable links for an asset or a directory, list them, and manage their lifecycle (revoke -> reauthorize -> delete). Public viewing/downloading happens on the token URL returned as \"public_url\" (the /share/{token} routes), not through these authenticated endpoints. All actions are directory-ACL scoped."
+				},
+				{
+					"name": "Linked Resources",
+					"item": [
+						{
+							"name": "Get the Linked Resources",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}/api/v1/rest/linked-resource/9",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"rest",
+										"linked-resource",
+										"9"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "APIs for DAM Linked Resources."
+				}
+			],
+			"description": "All Unopim DAM REST APIs."
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
