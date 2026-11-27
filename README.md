@@ -96,3 +96,7 @@ Editing the JSON in git is fine — merging to `main` pushes it to Postman. Avoi
 - [UnoPim GitHub](https://github.com/unopim/unopim)
 - [Official UnoPim API Collection](https://github.com/unopim/unopim-api-collection)
 - [Postman Workspace](https://www.postman.com/unopim/unopim-apis)
+
+## License
+
+The UnoPim DAM API collection is open-source software licensed under the [MIT License](LICENSE).
